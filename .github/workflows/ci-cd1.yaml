@@ -1,0 +1,10 @@
+- name: run sonarqube scan against code
+  run: mvn sonar:sonar -Dsonar.host.url=${{ secrets.SONAR_URL }} -Dsonar.login=${{ secrets.SONAR_LOGIN }}
+
+- name: provide Github Runner with the key pair to our Tomcat Instance
+  run: |
+    echo "${{ secrets.SECONDINSTANCEKEYPAIR }}" > ~/secondinstancekey.pem
+    chmod 600 ~/secondinstancekey.pem
+
+- name: securely move our artifact into our tomcat server
+  run: scp -i ~/secondinstancekey.pem -o StrictHostKeyChecking=no target/*.war ${{ secrets.INSTANCE_LOGIN }}:/opt/tomcat9/webapps
