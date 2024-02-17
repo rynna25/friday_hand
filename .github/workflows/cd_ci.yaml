@@ -45,7 +45,7 @@ jobs:
             
 
             - name: run sonarqube scan against code
-              run: mvn sonar:sonar -Dsonar.url=http:54.164.71.139:9000
+              run: mvn sonar:sonar -Dsonar.url=http://3.84.14.143:9000
               
 
             - name: provide Github Runner with the key pair to our Tomcat Instance
